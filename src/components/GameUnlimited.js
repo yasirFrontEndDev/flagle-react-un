@@ -41,8 +41,11 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const GameUnlimited = ({onGameEnd,solution}) => {
-    const [currentSolution, setCurrentSolution] = useState(solution);
-
+    const [currentSolution, setCurrentSolution] = useState(() => {
+        // Check if the localStorage key exists and parse it
+        const storedSolution = localStorage.getItem('flagle-state-tempSol');
+        return storedSolution ? JSON.parse(storedSolution) : solution;
+      });    
     const theme = useTheme();
     const size = theme.size;
 
@@ -283,6 +286,7 @@ const GameUnlimited = ({onGameEnd,solution}) => {
 
 
     const handleGuess = () => {
+        console.log(currentSolution)
         if(selectedCountry !== null && guesses.filter(g => g.code === selectedCountry.code).length === 0) {
             if (guesses.length === 0) {
                 let oldState = JSON.parse(localStorage.getItem('flagle-state-unlimited'))
@@ -327,11 +331,7 @@ const GameUnlimited = ({onGameEnd,solution}) => {
         
         inputField.focus();
     }
-    const guessListRef = React.useRef();
     const handleResetGame = () => {
-        setTimeout(() => {
-            guessListRef.current?.clearAllCanvases();
-        }, 2000);
         // Clear all game-specific states
         setGuesses([]);
         setGameOver(false);
@@ -342,16 +342,12 @@ const GameUnlimited = ({onGameEnd,solution}) => {
         setCounter(0);
         setResultColors([]);
         setAnimate(false);
-       // Clear animation canvas
-    const animCanvas = document.getElementById('temp-canvas');
-    const animCtx = animCanvas.getContext('2d');
-    animCtx.clearRect(0, 0, animCanvas.width, animCanvas.height);
-
-    // Clear flag canvas
-    const flagCanvas = document.getElementById('flag-canvas');
-    const flagCtx = flagCanvas.getContext('2d');
-    flagCtx.clearRect(0, 0, flagCanvas.width, flagCanvas.height);
-    console.log(animCanvas,flagCanvas)    
+        // Clear animation canvas
+        const animCanvas = document.getElementById('temp-canvas');
+        const animCtx = animCanvas.getContext('2d');
+        animCtx.clearRect(0, 0, animCanvas.width, animCanvas.height);
+        console.log(animCanvas , "anim" , animate);
+        
 
         // Reinitialize flag data
         let tempFlagToGuess = new MarvinImage();
@@ -380,12 +376,14 @@ const GameUnlimited = ({onGameEnd,solution}) => {
         };
         localStorage.setItem('flagle-state-unlimited', JSON.stringify(newState));
         setState(newState);
-        // window.location.reload();
+        window.location.reload();
     };
     
     const handleIsUnlimitedClick = () => {
        // Generate a new solution using GetDailyRandom
         const newSolution = GetDailyRandom(isoCountries, true); // Enable unlimited mode
+        console.log(newSolution)
+        localStorage.setItem('flagle-state-tempSol', JSON.stringify(newSolution));
         setCurrentSolution(newSolution); // Update the local solution
         handleResetGame(); // Call the reset function
     };
@@ -606,7 +604,7 @@ const GameUnlimited = ({onGameEnd,solution}) => {
                     <canvas id="temp-canvas" width={canvasWidth} height={canvasHeight} style={{position: 'absolute', borderRadius: '0.3rem'}}></canvas>
                 </Fade>
             </div>
-            <GuessListUnlimited ref={guessListRef} guesses={guesses} resultColors={resultColors} setResultColors={setResultColors} showOriginal={showOriginal}></GuessListUnlimited>
+            <GuessListUnlimited guesses={guesses} resultColors={resultColors} setResultColors={setResultColors} showOriginal={showOriginal}></GuessListUnlimited>
             {!gameOver && (
                 <div id='guess-container' style={{display: size === 4 || size === 8 || size === 12 ? "inline-flex" : "block", justifyContent: "space-between"}}>
                     <Autocomplete
