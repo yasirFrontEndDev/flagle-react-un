@@ -327,7 +327,11 @@ const GameUnlimited = ({onGameEnd,solution}) => {
         
         inputField.focus();
     }
+    const guessListRef = React.useRef();
     const handleResetGame = () => {
+        setTimeout(() => {
+            guessListRef.current?.clearAllCanvases();
+        }, 2000);
         // Clear all game-specific states
         setGuesses([]);
         setGameOver(false);
@@ -338,12 +342,16 @@ const GameUnlimited = ({onGameEnd,solution}) => {
         setCounter(0);
         setResultColors([]);
         setAnimate(false);
-        // Clear animation canvas
-        const animCanvas = document.getElementById('temp-canvas');
-        const animCtx = animCanvas.getContext('2d');
-        animCtx.clearRect(0, 0, animCanvas.width, animCanvas.height);
-        console.log(animCanvas , "anim" , animate);
-        
+       // Clear animation canvas
+    const animCanvas = document.getElementById('temp-canvas');
+    const animCtx = animCanvas.getContext('2d');
+    animCtx.clearRect(0, 0, animCanvas.width, animCanvas.height);
+
+    // Clear flag canvas
+    const flagCanvas = document.getElementById('flag-canvas');
+    const flagCtx = flagCanvas.getContext('2d');
+    flagCtx.clearRect(0, 0, flagCanvas.width, flagCanvas.height);
+    console.log(animCanvas,flagCanvas)    
 
         // Reinitialize flag data
         let tempFlagToGuess = new MarvinImage();
@@ -372,7 +380,7 @@ const GameUnlimited = ({onGameEnd,solution}) => {
         };
         localStorage.setItem('flagle-state-unlimited', JSON.stringify(newState));
         setState(newState);
-        window.location.reload();
+        // window.location.reload();
     };
     
     const handleIsUnlimitedClick = () => {
@@ -598,7 +606,7 @@ const GameUnlimited = ({onGameEnd,solution}) => {
                     <canvas id="temp-canvas" width={canvasWidth} height={canvasHeight} style={{position: 'absolute', borderRadius: '0.3rem'}}></canvas>
                 </Fade>
             </div>
-            <GuessListUnlimited guesses={guesses} resultColors={resultColors} setResultColors={setResultColors} showOriginal={showOriginal}></GuessListUnlimited>
+            <GuessListUnlimited ref={guessListRef} guesses={guesses} resultColors={resultColors} setResultColors={setResultColors} showOriginal={showOriginal}></GuessListUnlimited>
             {!gameOver && (
                 <div id='guess-container' style={{display: size === 4 || size === 8 || size === 12 ? "inline-flex" : "block", justifyContent: "space-between"}}>
                     <Autocomplete

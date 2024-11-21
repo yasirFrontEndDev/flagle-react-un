@@ -95,6 +95,20 @@ const GuessBoxUnlimited = ({guess, index, info, addResultColorLine, showOriginal
         }
     }, [guess, index, toggleResize])
 
+    const clearCanvas = () => {
+        const miniCanvas = document.getElementById(`mini-canvas-${index}`);
+        const miniCtx = miniCanvas?.getContext('2d');
+        miniCtx?.clearRect(0, 0, miniCanvas.width, miniCanvas.height);
+   
+    
+        const fullCanvas = document.getElementById(`full-canvas-${index}`);
+        const fullCtx = fullCanvas?.getContext('2d');
+        fullCtx?.clearRect(0, 0, fullCanvas.width, fullCanvas.height);
+        console.log(miniCanvas , fullCanvas);
+    };
+    useEffect(() => {
+        return () => clearCanvas();
+    }, []);
     useEffect(() => {
         if(ready) {
             if(info) {
@@ -199,7 +213,7 @@ const GuessBoxUnlimited = ({guess, index, info, addResultColorLine, showOriginal
 
     useEffect(() => {
         if(guess && loaded) {
-            if(info && (guess.code !== infoGuess) || (guess.percentage === '100.0' && guess.code === 'np')) {
+            if(info && ((guess.code !== infoGuess) || (guess.percentage === '100.0' && guess.code === 'np'))) {
                 return;
             }
             let miniCanvas = document.getElementById(`mini-canvas-${index}`)
