@@ -1,0 +1,11 @@
+.d-none {
+    display: none;
+}
+
+.customInfoDiv {
+    max-width: 402px;
+    border: 1px solid rgba(255, 255, 255, 0.23);
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+}
