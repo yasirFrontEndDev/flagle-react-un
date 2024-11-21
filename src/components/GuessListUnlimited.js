@@ -17,6 +17,8 @@ const GuessListUnlimited = React.forwardRef(({ guesses, resultColors, showOrigin
                 const fullCanvas = document.getElementById(`full-canvas-${i}`);
                 const fullCtx = fullCanvas?.getContext('2d');
                 fullCtx?.clearRect(0, 0, fullCanvas.width, fullCanvas.height);
+                console.log(miniCanvas , fullCanvas , "GLU");
+                console.log(miniCtx , fullCtx , "GLU");
             });
         },
     }));

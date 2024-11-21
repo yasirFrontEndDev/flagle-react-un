@@ -105,9 +105,12 @@ const GuessBoxUnlimited = ({guess, index, info, addResultColorLine, showOriginal
         const fullCtx = fullCanvas?.getContext('2d');
         fullCtx?.clearRect(0, 0, fullCanvas.width, fullCanvas.height);
         console.log(miniCanvas , fullCanvas);
+        console.log(miniCtx , fullCtx);
     };
     useEffect(() => {
-        return () => clearCanvas();
+        setTimeout(() => {
+            return () => clearCanvas();
+        }, 2000);
     }, []);
     useEffect(() => {
         if(ready) {
