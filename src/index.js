@@ -8,14 +8,14 @@ import UnlimitedMode from './UnlimitedMode';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/daily" element={<App />} />
         <Route path="/unlimited" element={<UnlimitedMode />} />
 
       </Routes>
-    </BrowserRouter>,
+    </HashRouter>,
   </React.StrictMode>,
   document.getElementById('root')
 );
