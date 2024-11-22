@@ -10,7 +10,7 @@ const GuessChartUnlimited = ({solution}) => {
 
     const [last, setLast] = useState()
 
-    const [played, setPlayed] = useState(null)
+    const [played, setPlayed] = useState(0)
 
     useEffect(() => {
         let stats = JSON.parse(localStorage.getItem('flagle-statistics-unlimited'))

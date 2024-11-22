@@ -22,13 +22,14 @@ const StatisticsUnlimited = ({open, setOpen, solution}) => {
     const [stats, setStats] = useState()
     const [played, setPlayed] = useState()
     const [won, setWon] = useState()
-
     useEffect(() => {
-        let statStorage = JSON.parse(localStorage.getItem('flagle-statistics-unlimited')) || { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "X": 0 };
-        setStats(statStorage)
-        setPlayed(statStorage ? Object.values(statStorage.guesses).reduce((a, b) => a+b) : 0)
-        setWon(statStorage ? Object.values(statStorage.guesses).reduce((a, b) => a+b) - statStorage.guesses["X"] : 0)
-    }, [open])
+        const defaultStats = { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "X": 0 };
+        let statStorage = JSON.parse(localStorage.getItem('flagle-statistics-unlimited')) || { guesses: defaultStats };
+        setStats(statStorage);
+        const totalPlayed = Object.values(statStorage.guesses || defaultStats).reduce((a, b) => a + b, 0);
+        setPlayed(totalPlayed);
+        setWon(totalPlayed - (statStorage.guesses["X"] || 0));
+    }, [open]);
 
     
     let xDown = null;                                                        
