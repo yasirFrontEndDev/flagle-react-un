@@ -25,19 +25,21 @@ const Header = ({ setSettingsOpen, setStatsOpen, disabled }) => {
   const [showTooltip, setShowTooltip] = useState(true);
 
   useEffect(() => {
+    const settingsKey = isDailyRoute ? "flagle-settings" : "flagle-settings-unlimited"; // Use the appropriate key based on the route
     let tooltipShown = JSON.parse(localStorage.getItem("flagle-tooltipshown"));
-    let settings = JSON.parse(localStorage.getItem("flagle-settings"));
+    let settings = JSON.parse(localStorage.getItem(settingsKey)); // Get settings for the current mode
     let tooltip = document.querySelectorAll(
       `[data-tip][data-for="settingsTip"]`
     )[0];
-
-    if (tooltipShown === null && settings.hardMode === false) {
+  
+    if (tooltipShown === null && settings?.hardMode === false) {
       ReactTooltip.show(tooltip);
     } else {
       localStorage.setItem("flagle-tooltipshown", "true");
       setShowTooltip(false);
     }
-  }, []);
+  }, [isDailyRoute]); // Add isDailyRoute as a dependency
+  
 
   const toggleTheme = () => {
     theme.toggleTheme();

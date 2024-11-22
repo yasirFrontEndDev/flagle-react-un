@@ -35,12 +35,12 @@ function UnlimitedMode() {
 
   
   useEffect(() => {
-    let settings = JSON.parse(localStorage.getItem('flagle-settings'))
+    let settings = JSON.parse(localStorage.getItem('flagle-settings-unlimited'))
     if(settings === null) {
       let newSettings = {'hardMode': false, 'animations': true, 'darkTheme': true}
       settings = newSettings;
      
-      localStorage.setItem('flagle-settings', JSON.stringify(newSettings))
+      localStorage.setItem('flagle-settings-unlimited', JSON.stringify(newSettings))
       
       let newStats = {"currentStreak": 0, "maxStreak": 0, "guesses": {'1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, 'X': 0}}
       localStorage.setItem('flagle-statistics-unlimited', JSON.stringify(newStats))
@@ -145,7 +145,7 @@ const resetGame = () => {
     toggleTheme: () => {
       let newColorTheme = colorTheme === "light" ? "dark" : "light"
       let newSettings = {'hardMode': hardMode, 'animations': animationsOn, 'darkTheme': newColorTheme === "dark" ? true : false}
-      localStorage.setItem('flagle-settings', JSON.stringify(newSettings))
+      localStorage.setItem('flagle-settings-unlimited', JSON.stringify(newSettings))
       
       setColorTheme(newColorTheme)
     },
@@ -157,13 +157,13 @@ const resetGame = () => {
         document.body.style.transition = 'all 0.2s linear'
       }
       let newSettings = {'hardMode': hardMode, 'animations': !animationsOn, 'darkTheme': colorTheme === "dark" ? true : false}
-      localStorage.setItem('flagle-settings', JSON.stringify(newSettings))
+      localStorage.setItem('flagle-settings-unlimited', JSON.stringify(newSettings))
       
       setAnimationsOn(!animationsOn)
     },
     toggleMode: () => {
       let newSettings = {'hardMode': !hardMode, 'animations': animationsOn, 'darkTheme': colorTheme === "dark" ? true : false}
-      localStorage.setItem('flagle-settings', JSON.stringify(newSettings))
+      localStorage.setItem('flagle-settings-unlimited', JSON.stringify(newSettings))
       
       setHardMode(!hardMode)
       
