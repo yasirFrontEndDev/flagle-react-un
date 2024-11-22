@@ -71,7 +71,7 @@ function UnlimitedMode() {
     setScreenWidth(window.innerWidth)
     
 
-    setSolution(GetDailyRandom(isoCountries))
+    setSolution(GetDailyRandom(isoCountries, true))
   }, [])
 
   const changeWindowSize = () => {

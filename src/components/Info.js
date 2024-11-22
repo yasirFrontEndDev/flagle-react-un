@@ -313,7 +313,7 @@ const Info = ({open, setOpen}) => {
             onTouchMove={handleTouchMove}
             >
                 <Toolbar sx={{borderBottom: `1px solid ${theme.palette.border.default}`, width: '100%'}}>
-            <DialogTitle sx={{textAlign: 'center', fontSize: '28px', width: '100%'}}>HOW TO PLAYs</DialogTitle>
+            <DialogTitle sx={{textAlign: 'center', fontSize: '28px', width: '100%'}}>HOW TO PLAY</DialogTitle>
             {theme.screenWidth <= 500 && (
 
                 <IconButton

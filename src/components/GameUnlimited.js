@@ -608,7 +608,7 @@ const GameUnlimited = ({onGameEnd,solution}) => {
     }
     return (
         <div id="game" style={{width: canvasWidth+2}}>
-            <p>Game Unlimited</p>
+            <p className='text-center'>Unlimited</p>
             <div id='flag-container'
                 style={{backgroundColor: theme.palette.background.canvas,
                         width: `${canvasWidth+2}px`,

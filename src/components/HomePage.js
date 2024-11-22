@@ -1,5 +1,6 @@
 import React from "react";
 import dailyImage from "../images/homepage/daily.png";
+import unlimitedImage from "../images/homepage/unlimited.png";
 import { Link } from "react-router-dom";
 const HomePage = () => {
   return (
@@ -27,9 +28,6 @@ const HomePage = () => {
 
           {/* Navigation */}
           <nav style={{ display: "flex", gap: "20px", fontSize: "14px" }}>
-            <a href="about.html" style={{ textDecoration: "none", color: "#FFFFFF" }}>
-              How to Play?
-            </a>
             <a href="mailto:mythomasgames@gmail.com" style={{ textDecoration: "none", color: "#FFFFFF" }}>
               Contact
             </a>
@@ -48,16 +46,17 @@ const HomePage = () => {
             padding: "20px",
             marginBottom: "20px",
             position: "relative",
-             textAlign: "left"
+             textAlign: "left",
+              overflow: "hidden"
           }}
         >
           <img
            src={dailyImage}
             alt="Daily Game"
-            style={{ position: "absolute", top: 0, right: 0, height: "100%" }}
+            className="dailyUnlimitedHomepage"
           />
           <div style={{ color: "#D0D0D0", fontSize: "14px", marginBottom: "10px" }}>Play once daily</div>
-          <div style={{ color: "#FFFFFF", fontSize: "18px", fontWeight: "bold", marginBottom: "20px" }}>Daily Crissle Crossle</div>
+          <div style={{ color: "#FFFFFF", fontSize: "18px", fontWeight: "bold", marginBottom: "20px" }}>Daily Flagle</div>
           <Link
             to="/daily"
             style={{
@@ -69,6 +68,7 @@ const HomePage = () => {
               color: "#FFFFFF",
               backgroundColor: "transparent",
               transition: "background-color 0.3s",
+             
             }}
           > 
             Play Now
@@ -83,16 +83,17 @@ const HomePage = () => {
             borderRadius: "8px",
             padding: "20px",
             position: "relative",
-            textAlign: "left"
+            textAlign: "left",
+            overflow: "hidden"
           }}
         >
           <img
-            src={dailyImage}
+            src={unlimitedImage}
             alt="Practice Game"
-            style={{ position: "absolute", top: 0, right: 0, height: "100%" }}
+            className="dailyUnlimitedHomepage"
           />
           <div style={{ color: "#D0D0D0", fontSize: "14px", marginBottom: "10px" }}>Play unlimited</div>
-          <div style={{ color: "#FFFFFF", fontSize: "18px", fontWeight: "bold", marginBottom: "20px" }}>Practice Crissle Crossle</div>
+          <div style={{ color: "#FFFFFF", fontSize: "18px", fontWeight: "bold", marginBottom: "20px" }}>Practice Flagle</div>
           <Link
           to="/unlimited"
             style={{
@@ -104,6 +105,7 @@ const HomePage = () => {
               color: "#FFFFFF",
               backgroundColor: "transparent",
               transition: "background-color 0.3s",
+              
             }}
           >
             Play Now

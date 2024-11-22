@@ -1,6 +1,15 @@
 .d-none {
     display: none;
 }
+.text-center {
+    text-align: center;
+}
+.dailyUnlimitedHomepage {
+    position: absolute;
+    top: -50px;
+    right: -70px;
+    height: 300px;
+}
 
 .customInfoDiv {
     max-width: 402px;
