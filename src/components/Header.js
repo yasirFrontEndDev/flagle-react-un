@@ -25,6 +25,7 @@ const Header = ({ setSettingsOpen, setStatsOpen, disabled }) => {
   const [showTooltip, setShowTooltip] = useState(true);
 
   useEffect(() => {
+    //hard mode new change two keys
     const settingsKey = isDailyRoute ? "flagle-settings" : "flagle-settings-unlimited"; // Use the appropriate key based on the route
     let tooltipShown = JSON.parse(localStorage.getItem("flagle-tooltipshown"));
     let settings = JSON.parse(localStorage.getItem(settingsKey)); // Get settings for the current mode

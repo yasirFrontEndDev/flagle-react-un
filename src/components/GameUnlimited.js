@@ -331,6 +331,12 @@ const GameUnlimited = ({onGameEnd,solution}) => {
         
         inputField.focus();
     }
+    //hard mode new change
+    useEffect(() => {
+        const state = JSON.parse(localStorage.getItem('flagle-state-unlimited')) || {};
+        state.hardMode = hardMode;
+        localStorage.setItem('flagle-state-unlimited', JSON.stringify(state));
+    }, [hardMode]);
     const handleResetGame = () => {
         // Clear all game-specific states
         setGuesses([]);
@@ -347,7 +353,21 @@ const GameUnlimited = ({onGameEnd,solution}) => {
         const animCtx = animCanvas.getContext('2d');
         animCtx.clearRect(0, 0, animCanvas.width, animCanvas.height);
         console.log(animCanvas , "anim" , animate);
-        
+         // Reinitialize flags //hard mode new change
+        let tempCountries = Object.keys(isoCountries).map((key) => ({
+            code: key.toLowerCase(),
+            label: isoCountries[key],
+        }));
+
+        // Reapply sorting //hard mode new change
+        let sortedCountries = tempCountries.sort((a, b) => a.label.localeCompare(b.label));
+
+        // Reset `countries` based on the current `hardMode` //hard mode new change
+        if (!hardMode) {
+            // If `hardMode` is disabled, reset all visible flags
+            setCountries(sortedCountries);
+            console.log(sortedCountries);
+        }
 
         // Reinitialize flag data
         let tempFlagToGuess = new MarvinImage();
