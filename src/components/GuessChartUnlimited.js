@@ -6,11 +6,9 @@ import useTheme from '@mui/material/styles/useTheme';
 const GuessChartUnlimited = ({solution}) => {
     const theme = useTheme();
 
-    const [data, setData] = useState()
-
-    const [last, setLast] = useState()
-
-    const [played, setPlayed] = useState(0)
+    const [data, setData] = useState([]);
+    const [last, setLast] = useState("");
+    const [played, setPlayed] = useState(0);
 
     useEffect(() => {
         let stats = JSON.parse(localStorage.getItem('flagle-statistics-unlimited'))

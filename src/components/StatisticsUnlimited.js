@@ -31,31 +31,31 @@ const StatisticsUnlimited = ({open, setOpen, solution}) => {
     //     setWon(statStorage ? Object.values(statStorage.guesses).reduce((a, b) => a+b) - statStorage.guesses["X"] : 0)
     // }, [open])
     //after removing X but curnt and max streak default gone
-    // useEffect(() => {
-    //     const defaultStats = { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "X": 0 };
-    //     let statStorage = JSON.parse(localStorage.getItem('flagle-statistics-unlimited')) || { guesses: defaultStats };
-    //     setStats(statStorage);
-    //     const totalPlayed = Object.values(statStorage.guesses || defaultStats).reduce((a, b) => a + b, 0);
-    //     setPlayed(totalPlayed);
-    //     setWon(totalPlayed - (statStorage.guesses["X"] || 0));
-    // }, [open]);
-    // latest
     useEffect(() => {
-        const defaultStats = { 
-            "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "X": 0 
-        };
-        const savedStats = JSON.parse(localStorage.getItem('flagle-statistics-unlimited')) || {};
-        
-        const guesses = { ...defaultStats, ...(savedStats.guesses || {}) };
-        const currentStreak = savedStats.currentStreak || 0;
-        const maxStreak = savedStats.maxStreak || 0;
-    
-        setStats({ guesses, currentStreak, maxStreak });
-        
-        const totalPlayed = Object.values(guesses).reduce((a, b) => a + b, 0);
+        const defaultStats = { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "X": 0 };
+        let statStorage = JSON.parse(localStorage.getItem('flagle-statistics-unlimited')) || { guesses: defaultStats };
+        setStats(statStorage);
+        const totalPlayed = Object.values(statStorage.guesses || defaultStats).reduce((a, b) => a + b, 0);
         setPlayed(totalPlayed);
-        setWon(totalPlayed - guesses["X"]);
+        setWon(totalPlayed - (statStorage.guesses["X"] || 0));
     }, [open]);
+    // latest
+    // useEffect(() => {
+    //     const defaultStats = { 
+    //         "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "X": 0 
+    //     };
+    //     const savedStats = JSON.parse(localStorage.getItem('flagle-statistics-unlimited')) || {};
+        
+    //     const guesses = { ...defaultStats, ...(savedStats.guesses || {}) };
+    //     const currentStreak = savedStats.currentStreak || 0;
+    //     const maxStreak = savedStats.maxStreak || 0;
+    
+    //     setStats({ guesses, currentStreak, maxStreak });
+        
+    //     const totalPlayed = Object.values(guesses).reduce((a, b) => a + b, 0);
+    //     setPlayed(totalPlayed);
+    //     setWon(totalPlayed - guesses["X"]);
+    // }, [open]);
     
 
 
