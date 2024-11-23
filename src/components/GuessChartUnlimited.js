@@ -43,7 +43,6 @@ const GuessChartUnlimited = ({solution}) => {
             }
         }
     }, [])
-    console.log(data)
     return (
         <div style={{ width: '100%', height: '215px' }}>
                 {data && (

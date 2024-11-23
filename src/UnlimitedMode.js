@@ -79,9 +79,7 @@ function UnlimitedMode() {
     setScreenWidth(window.innerWidth)
   }
 const resetGame = () => {
-    setSolution(GetDailyRandom(isoCountries));
-    console.log(isoCountries , "reset");
-    
+    setSolution(GetDailyRandom(isoCountries));    
   };
   const theme = createTheme({
     palette: {
@@ -195,14 +193,13 @@ const resetGame = () => {
         
     }
   });
-
   return (
     <ThemeProvider theme={theme}>
       {solution && (
         <>
           <CssBaseline enableColorScheme/>
             <Header setSettingsOpen={setSettingsOpen} setStatsOpen={setStatsOpen} setInfoOpen={setInfoOpen} disabled={false}/>
-            <GameUnlimited onGameEnd={resetGame} solution={solution} animationsOn={animationsOn}/>
+            <GameUnlimited onGameEnd={resetGame} solution={solution} animationsOn={animationsOn} UnlimitedHardMode={hardMode}/>
             <Info open={infoOpen} setOpen={setInfoOpen}/>
             <Settings open={settingsOpen} setOpen={setSettingsOpen}/>
             <StatisticsUnlimited solution={solution} open={statsOpen} setOpen={setStatsOpen}/>
