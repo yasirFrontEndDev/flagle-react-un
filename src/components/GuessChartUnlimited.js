@@ -43,35 +43,60 @@ const GuessChartUnlimited = ({solution}) => {
             }
         }
     }, [])
-
+    console.log(data)
     return (
-        <div style={{width: '100%', height: '215px'}}>
-            {data && (
-                <ResponsiveContainer>
-                <BarChart 
-                    data={data}
-                    layout="vertical" barCategoryGap={1}
-                    margin={{ top: 0, right: 50, left: 0, bottom: 50 }}
-                    >
-
-                    <XAxis type="number" hide domain={played === 0 ? [0, 'auto'] : [0, 'dataMax']}/>
-                    <YAxis type="category" dataKey="label" axisLine={false} tickLine={false} interval={0} stroke={theme.palette.text.primary} fontSize={'14px'}/>
-                            
-                    <Bar 
-                        dataKey="value" 
-                        minPointSize={25}
-                        isAnimationActive={theme.animationsOn ? true : false}
-                        barSize={20}
-                        label={{ fill: '#fff', fontSize: 14, position: 'insideRight', dx: -2, fontWeight: 500 }}
+        <div style={{ width: '100%', height: '215px' }}>
+                {data && (
+                    <ResponsiveContainer>
+                        <BarChart
+                            data={data}
+                            layout="vertical"
+                            barCategoryGap={1}
+                            margin={{ top: 0, right: 50, left: 0, bottom: 50 }}
                         >
-                        {data.map((entry, index) => (
-                            <Cell key={index} fill={last !== entry.label ? theme.palette.chart.grey : last !== "X" ? theme.palette.chart.green : theme.palette.chart.red} />
-                            ))}
-                    </Bar>
-                    
-                    </BarChart>
-                </ResponsiveContainer>
-            )}
+                            <XAxis
+                                type="number"
+                                hide
+                                domain={[0, 'auto']}
+                            />
+                            <YAxis
+                                type="category"
+                                dataKey="label"
+                                axisLine={false}
+                                tickLine={false}
+                                interval={0}
+                                stroke={theme.palette.text.primary}
+                                fontSize={'14px'}
+                            />
+                            <Bar
+                                dataKey="value"
+                                minPointSize={25}
+                                isAnimationActive={!!theme.animationsOn}
+                                barSize={20}
+                                label={{
+                                    fill: '#fff',
+                                    fontSize: 14,
+                                    position: 'insideRight',
+                                    dx: -2,
+                                    fontWeight: 500,
+                                }}
+                            >
+                                {data.map((entry, index) => (
+                                    <Cell
+                                        key={index}
+                                        fill={
+                                            entry.value > 0
+                                                ? entry.label === 'X'
+                                                    ? theme.palette.chart.red
+                                                    : theme.palette.chart.green
+                                                : theme.palette.chart.grey
+                                        }
+                                    />
+                                ))}
+                            </Bar>
+                        </BarChart>
+                    </ResponsiveContainer>
+                )}
         </div>
     )
 }
