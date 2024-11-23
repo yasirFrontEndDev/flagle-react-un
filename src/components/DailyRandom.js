@@ -4,7 +4,7 @@ export function GetDailyRandom(list, unlimitedMode = false) {
     if (unlimitedMode) {
         // Unlimited mode: pick a truly random item
         let keys = Object.keys(list);
-        let randomIndex = Math.floor(Math.random() * keys.length); // Generate a random index
+        const randomIndex = crypto.getRandomValues(new Uint32Array(1))[0] % keys.length; // Use cryptographic randomness
         let solutionCode = keys[randomIndex]; // Get the random country code
         return { code: solutionCode.toLowerCase(), label: list[solutionCode] };
     } else {
