@@ -40,7 +40,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const GameUnlimited = ({onGameEnd,solution}) => {
+const GameUnlimited = ({solution,UnlimitedHardMode}) => {
     const [currentSolution, setCurrentSolution] = useState(() => {
         // Check if the localStorage key exists and parse it
         const storedSolution = localStorage.getItem('flagle-state-tempSol');
@@ -54,7 +54,7 @@ const GameUnlimited = ({onGameEnd,solution}) => {
     const canvasHeight = theme.canvasHeight;
     const animationsOn = theme.animationsOn;
     const animationLength = theme.animationLength;
-    const hardMode = theme.stateHardMode;
+    const hardMode = UnlimitedHardMode;
 
     const [inputValue, setInputValue] = useState("");
 
@@ -286,7 +286,6 @@ const GameUnlimited = ({onGameEnd,solution}) => {
 
 
     const handleGuess = () => {
-        console.log(currentSolution)
         if(selectedCountry !== null && guesses.filter(g => g.code === selectedCountry.code).length === 0) {
             if (guesses.length === 0) {
                 let oldState = JSON.parse(localStorage.getItem('flagle-state-unlimited'))
@@ -352,7 +351,7 @@ const GameUnlimited = ({onGameEnd,solution}) => {
         const animCanvas = document.getElementById('temp-canvas');
         const animCtx = animCanvas.getContext('2d');
         animCtx.clearRect(0, 0, animCanvas.width, animCanvas.height);
-        console.log(animCanvas , "anim" , animate);
+        // console.log(animCanvas , "anim" , animate);
          // Reinitialize flags //hard mode new change
         let tempCountries = Object.keys(isoCountries).map((key) => ({
             code: key.toLowerCase(),
@@ -366,7 +365,7 @@ const GameUnlimited = ({onGameEnd,solution}) => {
         if (!hardMode) {
             // If `hardMode` is disabled, reset all visible flags
             setCountries(sortedCountries);
-            console.log(sortedCountries);
+            // console.log(sortedCountries);
         }
 
         // Reinitialize flag data
