@@ -9,40 +9,75 @@ const GuessChartUnlimited = ({solution}) => {
     const [data, setData] = useState([]);
     const [last, setLast] = useState("");
     const [played, setPlayed] = useState(0);
+useEffect(() => {
+    // Get statistics from localStorage or initialize them
+    let stats = JSON.parse(localStorage.getItem('flagle-statistics-unlimited'));
 
-    useEffect(() => {
-        let stats = JSON.parse(localStorage.getItem('flagle-statistics-unlimited'))
-
-        let guesses = stats?.guesses || { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "X": 0 };
-        // If stats are missing, initialize local storage
+    let guesses = stats?.guesses || { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "X": 0 };
     if (!stats) {
         const newStats = { "currentStreak": 0, "maxStreak": 0, "guesses": guesses };
         localStorage.setItem('flagle-statistics-unlimited', JSON.stringify(newStats));
     }
-        if(guesses === null) {
-            guesses = {"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"X":0}
-            let newStats = {"currentStreak": 0, "maxStreak": 0, "guesses": guesses}
-            localStorage.setItem('flagle-statistics-unlimited', JSON.stringify(newStats))
+
+    // Handle null guesses case
+    if (guesses === null) {
+        guesses = { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "X": 0 };
+        let newStats = { "currentStreak": 0, "maxStreak": 0, "guesses": guesses };
+        localStorage.setItem('flagle-statistics-unlimited', JSON.stringify(newStats));
+    }
+
+    setData(Object.keys(guesses).map((k) => {
+        return { label: k, value: guesses[k] };
+    }));
+    setPlayed(Object.values(guesses).reduce((a, b) => a + b, 0));
+
+    // Get game state from localStorage and check guesses
+    let state = JSON.parse(localStorage.getItem('flagle-state-unlimited'));
+    if (state?.guesses?.length > 0) { // Safely check for state and guesses
+        if (state.guesses[state.guesses.length - 1]?.code === solution.code) {
+            setLast(state.guesses.length.toString());
+        } else if (state.guesses.length === 6) {
+            setLast("X");
+        } else {
+            setLast("");
         }
-        setData(Object.keys(guesses).map((k) => {
-            return {label: k, value: guesses[k]}
-        }))
-        setPlayed(Object.values(guesses).reduce((a, b) => a+b, 0))
+    }
+}, []);
+
+
+    // useEffect(() => {
+    //     let stats = JSON.parse(localStorage.getItem('flagle-statistics-unlimited'))
+
+    //     let guesses = stats?.guesses || { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "X": 0 };
+    //     // If stats are missing, initialize local storage
+    // if (!stats) {
+    //     const newStats = { "currentStreak": 0, "maxStreak": 0, "guesses": guesses };
+    //     localStorage.setItem('flagle-statistics-unlimited', JSON.stringify(newStats));
+    // }
+    //     if(guesses === null) {
+    //         guesses = {"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"X":0}
+    //         let newStats = {"currentStreak": 0, "maxStreak": 0, "guesses": guesses}
+    //         localStorage.setItem('flagle-statistics-unlimited', JSON.stringify(newStats))
+    //     }
+    //     setData(Object.keys(guesses).map((k) => {
+    //         return {label: k, value: guesses[k]}
+    //     }))
+    //     setPlayed(Object.values(guesses).reduce((a, b) => a+b, 0))
 
         
-        let state = JSON.parse(localStorage.getItem('flagle-state-unlimited'))
-        if(state !== null && state.guesses.length > 0) {
-            if(state.guesses[state.guesses.length-1].code === solution.code) {
-                setLast(state.guesses.length.toString())
-            }
-            else if (state.guesses.length === 6){
-                setLast("X")
-            }
-            else {
-                setLast("")
-            }
-        }
-    }, [])
+    //     let state = JSON.parse(localStorage.getItem('flagle-state-unlimited'))
+    //     if(state !== null && state.guesses.length > 0) {
+    //         if(state.guesses[state.guesses.length-1].code === solution.code) {
+    //             setLast(state.guesses.length.toString())
+    //         }
+    //         else if (state.guesses.length === 6){
+    //             setLast("X")
+    //         }
+    //         else {
+    //             setLast("")
+    //         }
+    //     }
+    // }, [])
     return (
         <div style={{ width: '100%', height: '215px' }}>
                 {data && (
